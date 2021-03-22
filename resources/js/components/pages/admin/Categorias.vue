@@ -44,53 +44,43 @@
             </div>
         </div>
         <div class="area-noticias-recentes">
-            <h3 class="titulo">Recent news</h3>
-            <Noticias :noticias="noticias" />
+            <h3 class="titulo">Categorias</h3>
+            <Categorias :categorias="categorias" />
         </div>
     </div>
 </template>
 
 <script>
-import Noticias from '../../inc/admin/Noticias.vue';
+import Categorias from '../../inc/admin/Categorias.vue';
 export default {
     data(){
         return{
-            noticias:[
+            categorias:[
                 {
-                 date:'01/01/2003',
-                 title:'Primeira noticia dinamica',
-                 categoria:'Esporte'   
+                 id:1,
+                 nome:'Acao',
                 },
                 {
-                 date:'01/01/2003',
-                 title:'Primeira noticia dinamica',
-                 categoria:'Esporte'   
+                 id:2,
+                 nome:'Esporte',
                 },
                 {
-                 date:'01/01/2003',
-                 title:'Primeira noticia dinamica',
-                 categoria:'Esporte'   
+                 id:3,
+                 nome:'Aventura',
                 },
                 {
-                 date:'01/01/2003',
-                 title:'Primeira noticia dinamica',
-                 categoria:'Esporte'   
+                 id:4,
+                 nome:'Informatica',
                 },
                 {
-                 date:'01/01/2003',
-                 title:'Primeira noticia dinamica',
-                 categoria:'Esporte'   
-                },
-                {
-                 date:'01/01/2003',
-                 title:'Primeira noticia dinamica',
-                 categoria:'Esporte'   
+                 id:5,
+                 nome:'Todos',
                 }
             ]
         }
     },
     components:{
-        Noticias
+        Categorias
     }
 }
 </script>

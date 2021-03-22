@@ -1,0 +1,30 @@
+#items-table{
+    .grid-items{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr 2fr;
+    }
+    header{
+        @extend .grid-items;
+        background: rgb(31, 188, 199);
+        font-weight: 900;
+        color: white;
+        border: none;
+        div{
+            padding: .4em;
+        }
+    }
+    .item{
+        @extend .grid-items;
+        div{
+            padding: .4em;
+            background: rgb(191, 251, 255);
+            border: 1px solid white;
+        }
+        .light{
+            color: rgb(130, 130, 130);
+        }
+        .weight-bold{
+            font-weight: 900;
+        }
+    }
+}

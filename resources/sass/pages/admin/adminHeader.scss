@@ -1,5 +1,6 @@
 #admin #adminHeader{
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     background: white;
     .area-logo{
         padding: 1.3em;
@@ -24,9 +25,20 @@
             padding: 0;
             li{
                 padding: 1em 2em;
+                border-bottom: 1px solid black;
+                width: 100%;
+                text-align: center;
+                border-radius: 1em;
+                &:hover{
+                    background: rgb(216, 216, 216);
+                    cursor: pointer;
+                }
                 a{
                     @extend .text-dark;
                     font-weight:600;
+                    &:hover{
+                        text-decoration: none;
+                    }
                 }
             }
         }

@@ -8,6 +8,9 @@
 @import '~bootstrap/scss/bootstrap';
 
 //pages
-@import 'pages/admin/adminHeader.scss';
-@import 'pages/admin/navbar.scss';
+    //admin
+    @import 'pages/admin/adminHeader.scss';
+    @import 'pages/admin/navbar.scss';
+    @import 'pages/admin/home.scss';
+    @import 'pages/admin/items-table.scss';
 
