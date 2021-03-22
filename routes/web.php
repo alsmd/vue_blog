@@ -24,3 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::any('{slug}', function () {
     return view('welcome');
 });
+
+Route::any('{slug}/{slug2}', function () {
+    return view('welcome');
+});

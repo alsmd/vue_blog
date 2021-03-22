@@ -1,9 +1,27 @@
 <template>
     <div>
-        <h1>Menu</h1>
-        <router-link to="/new-route">First Page</router-link>
-        <router-link to="/another-route">Second Page</router-link>
-        <router-view></router-view>
+        <div v-if="isAdminPage">
+            <AdminPage />
+        </div>
+        <div v-else>
+            <h1>Pagina da minha aplicação</h1>
+        </div>
     </div>
-
 </template>
+<script>
+import AdminPage from './pages/admin/Layout.vue'
+export default {
+    data(){
+        return{
+            isAdminPage:false
+        }
+    },
+    components:{
+        AdminPage
+    },
+    created(){
+        let path =  this.$route.path;
+        this.isAdminPage = path.startsWith('/admin');
+    }
+}
+</script>

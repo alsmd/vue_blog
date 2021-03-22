@@ -1,0 +1,12 @@
+#admin #navbar{
+    .navbar{
+        padding: 1.3em !important;
+    }
+    div.hr-container{
+        @extend .bg-light;
+        padding-top: .4em;
+        hr{
+            margin: 0 !important;
+        }
+    }
+}

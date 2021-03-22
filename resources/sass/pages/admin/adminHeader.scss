@@ -1,0 +1,34 @@
+#admin #adminHeader{
+    height: 100vh;
+    background: white;
+    .area-logo{
+        padding: 1.3em;
+        text-align: center;
+        font-weight: 700;
+    }
+    hr{
+        margin: .4em 0;
+    }
+    .navegacao{
+        .nav-title{
+            text-align: center;
+            font-weight: 900;
+            font-size: 26px;
+        }  
+        ul{
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 0;
+            padding: 0;
+            li{
+                padding: 1em 2em;
+                a{
+                    @extend .text-dark;
+                    font-weight:600;
+                }
+            }
+        }
+    }
+}
