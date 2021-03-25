@@ -10998,6 +10998,10 @@ a.text-dark:focus,
   text-decoration: none;
 }
 
+#admin #adminHeader .navegacao ul li.selecionado {
+  background: #d8d8d8;
+}
+
 #admin #navbar .navbar {
   padding: 1.3em !important;
 }

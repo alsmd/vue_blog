@@ -1,48 +1,5 @@
 <template>
     <div id="home">
-        <div class="area-indice">
-            <div class="indice">
-                <div class="left">
-                    <p class="numero">3</p>
-                    <p class="nome">Today's news</p>
-                </div>
-                <div class="right">
-
-                </div>
-            </div>
-
-            <div class="indice">
-                <div class="left">
-                    <p class="numero">3</p>
-                    <p class="nome">Today's news</p>
-                </div>
-                <div class="right">
-
-                </div>
-            </div>
-
-
-            <div class="indice">
-                <div class="left">
-                    <p class="numero">3</p>
-                    <p class="nome">Today's news</p>
-                </div>
-                <div class="right">
-
-                </div>
-            </div>
-
-
-            <div class="indice">
-                <div class="left">
-                    <p class="numero">3</p>
-                    <p class="nome">Today's news</p>
-                </div>
-                <div class="right">
-
-                </div>
-            </div>
-        </div>
         <div class="area-noticias-recentes">
             <h3 class="titulo">Categorias</h3>
             <Categorias :categorias="categorias" />

@@ -7,19 +7,15 @@
        <nav class="navegacao">
            <h3 class="nav-title">Admin</h3>
            <ul>
-               <li> <router-link to="/admin" class="">Overview</router-link></li>
-               <li class="dropdown">
+               <li :class="[$route.path == '/admin' ? 'selecionado':'']"> <router-link to="/admin" class="" >Dashbord</router-link></li>
+               <li :class="[$route.path == '/admin/post' ? 'selecionado':'']"> <router-link to="/admin/post" class="" >Poste</router-link></li>
+               <li :class="[$route.path == '/admin/categoria' ? 'selecionado':'']"> <router-link to="/admin/categoria" class="" >Categoria</router-link></li>
+               <!-- <li class="dropdown" :class="[$route.path.startsWith('/admin/post') ? 'selecionado':'']">
                    <a   class="dropdown-toggle" id="dropdown-postes" role="button" data-toggle='dropdown' aria-haspopup='true' aria-expanded="true">Postes</a>
                    <div class="dropdown-menu" aria-labelledby="dropdown-postes">
                        <router-link to="/admin/post" class="dropdown-item">Exibir</router-link>
                    </div>
-               </li>
-               <li class="dropdown">
-                   <a   class="dropdown-toggle" id="dropdown-categoria" role="button" data-toggle='dropdown' aria-haspopup='true' aria-expanded="true">Categoria</a>
-                   <div class="dropdown-menu" aria-labelledby="dropdown-categoria">
-                       <router-link  to="/admin/categoria" class="dropdown-item">Exibir</router-link>
-                   </div>
-               </li>
+               </li> -->
            </ul>
        </nav>
     </div>

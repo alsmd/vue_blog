@@ -1908,10 +1908,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdminHeader'
 });
@@ -2062,49 +2058,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _inc_admin_Categorias_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/admin/Categorias.vue */ "./resources/js/components/inc/admin/Categorias.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2292,32 +2245,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./router.js */ "./resources/js/router.js");
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default;
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
 Vue.component('main-app', __webpack_require__(/*! ./components/MainApp.vue */ "./resources/js/components/MainApp.vue").default);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 var app = new Vue({
   el: '#app',
   router: _router_js__WEBPACK_IMPORTED_MODULE_0__.default
@@ -2380,21 +2312,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_pages_admin_Home_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pages/admin/Home.vue */ "./resources/js/components/pages/admin/Home.vue");
-/* harmony import */ var _components_pages_admin_Categorias_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/pages/admin/Categorias.vue */ "./resources/js/components/pages/admin/Categorias.vue");
+/* harmony import */ var _components_pages_admin_Home_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/pages/admin/Home.vue */ "./resources/js/components/pages/admin/Home.vue");
+/* harmony import */ var _components_pages_admin_Categorias_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pages/admin/Categorias.vue */ "./resources/js/components/pages/admin/Categorias.vue");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_3__.default);
+vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_3__.default);
 var routes = [{
   'path': '/admin',
-  component: _components_pages_admin_Home_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  component: _components_pages_admin_Home_vue__WEBPACK_IMPORTED_MODULE_0__.default
 }, {
   'path': '/admin/categoria',
-  component: _components_pages_admin_Categorias_vue__WEBPACK_IMPORTED_MODULE_2__.default
+  component: _components_pages_admin_Categorias_vue__WEBPACK_IMPORTED_MODULE_1__.default
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_3__.default({
   mode: 'history',
@@ -38418,80 +38350,36 @@ var render = function() {
       _c("ul", [
         _c(
           "li",
+          { class: [_vm.$route.path == "/admin" ? "selecionado" : ""] },
           [
-            _c("router-link", { attrs: { to: "/admin" } }, [_vm._v("Overview")])
+            _c("router-link", { attrs: { to: "/admin" } }, [_vm._v("Dashbord")])
           ],
           1
         ),
         _vm._v(" "),
-        _c("li", { staticClass: "dropdown" }, [
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-toggle",
-              attrs: {
-                id: "dropdown-postes",
-                role: "button",
-                "data-toggle": "dropdown",
-                "aria-haspopup": "true",
-                "aria-expanded": "true"
-              }
-            },
-            [_vm._v("Postes")]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "dropdown-menu",
-              attrs: { "aria-labelledby": "dropdown-postes" }
-            },
-            [
-              _c(
-                "router-link",
-                { staticClass: "dropdown-item", attrs: { to: "/admin/post" } },
-                [_vm._v("Exibir")]
-              )
-            ],
-            1
-          )
-        ]),
+        _c(
+          "li",
+          { class: [_vm.$route.path == "/admin/post" ? "selecionado" : ""] },
+          [
+            _c("router-link", { attrs: { to: "/admin/post" } }, [
+              _vm._v("Poste")
+            ])
+          ],
+          1
+        ),
         _vm._v(" "),
-        _c("li", { staticClass: "dropdown" }, [
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-toggle",
-              attrs: {
-                id: "dropdown-categoria",
-                role: "button",
-                "data-toggle": "dropdown",
-                "aria-haspopup": "true",
-                "aria-expanded": "true"
-              }
-            },
-            [_vm._v("Categoria")]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "dropdown-menu",
-              attrs: { "aria-labelledby": "dropdown-categoria" }
-            },
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "dropdown-item",
-                  attrs: { to: "/admin/categoria" }
-                },
-                [_vm._v("Exibir")]
-              )
-            ],
-            1
-          )
-        ])
+        _c(
+          "li",
+          {
+            class: [_vm.$route.path == "/admin/categoria" ? "selecionado" : ""]
+          },
+          [
+            _c("router-link", { attrs: { to: "/admin/categoria" } }, [
+              _vm._v("Categoria")
+            ])
+          ],
+          1
+        )
       ])
     ])
   ])
@@ -38772,8 +38660,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "home" } }, [
-    _vm._m(0),
-    _vm._v(" "),
     _c(
       "div",
       { staticClass: "area-noticias-recentes" },
@@ -38786,54 +38672,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "area-indice" }, [
-      _c("div", { staticClass: "indice" }, [
-        _c("div", { staticClass: "left" }, [
-          _c("p", { staticClass: "numero" }, [_vm._v("3")]),
-          _vm._v(" "),
-          _c("p", { staticClass: "nome" }, [_vm._v("Today's news")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "right" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "indice" }, [
-        _c("div", { staticClass: "left" }, [
-          _c("p", { staticClass: "numero" }, [_vm._v("3")]),
-          _vm._v(" "),
-          _c("p", { staticClass: "nome" }, [_vm._v("Today's news")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "right" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "indice" }, [
-        _c("div", { staticClass: "left" }, [
-          _c("p", { staticClass: "numero" }, [_vm._v("3")]),
-          _vm._v(" "),
-          _c("p", { staticClass: "nome" }, [_vm._v("Today's news")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "right" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "indice" }, [
-        _c("div", { staticClass: "left" }, [
-          _c("p", { staticClass: "numero" }, [_vm._v("3")]),
-          _vm._v(" "),
-          _c("p", { staticClass: "nome" }, [_vm._v("Today's news")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "right" })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
