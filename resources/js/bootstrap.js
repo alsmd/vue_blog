@@ -20,7 +20,7 @@ try {
  */
 
 window.axios = require('axios');
-
+axios.defaults.baseURL = 'http://localhost:8080/api';
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

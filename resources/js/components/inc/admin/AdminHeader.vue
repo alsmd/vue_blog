@@ -10,6 +10,7 @@
                <li :class="[$route.path == '/admin' ? 'selecionado':'']"> <router-link to="/admin" class="" >Dashbord</router-link></li>
                <li :class="[$route.path == '/admin/post' ? 'selecionado':'']"> <router-link to="/admin/post" class="" >Poste</router-link></li>
                <li :class="[$route.path == '/admin/categoria' ? 'selecionado':'']"> <router-link to="/admin/categoria" class="" >Categoria</router-link></li>
+               <li :class="[$route.path == '/admin/tag' ? 'selecionado':'']"> <router-link to="/admin/tag" class="" >Tags</router-link></li>
                <!-- <li class="dropdown" :class="[$route.path.startsWith('/admin/post') ? 'selecionado':'']">
                    <a   class="dropdown-toggle" id="dropdown-postes" role="button" data-toggle='dropdown' aria-haspopup='true' aria-expanded="true">Postes</a>
                    <div class="dropdown-menu" aria-labelledby="dropdown-postes">
