@@ -25,7 +25,7 @@
                 <button class="btn btn-danger delete">Delete</button>
             </div>
         </div>
-</div>
+    </div>
 </template>
 
 <script>

@@ -9,7 +9,7 @@
     </div>
 </template>
 <script>
-import AdminPage from './pages/admin/Layout.vue'
+import AdminPage from '../admin/Layout.vue'
 export default {
     data(){
         return{

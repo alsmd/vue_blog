@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import AdminHeader from '../../inc/admin/AdminHeader.vue'
-import Navbar from '../../inc/admin/Navbar.vue'
+import AdminHeader from './components/AdminHeader.vue'
+import Navbar from './components/Navbar.vue'
 export default {
     components:{
         AdminHeader,

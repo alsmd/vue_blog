@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import Noticias from '../../inc/admin/Noticias.vue';
+import Noticias from '../components/Noticias.vue';
 export default {
     data(){
         return{
