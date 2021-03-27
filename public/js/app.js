@@ -2055,7 +2055,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  created: function created() {
+    this.token = window.Laravel.csrfToken;
+  },
   data: function data() {
     return {
       categorias: [{
@@ -2073,8 +2108,20 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         id: 5,
         nome: 'Todos'
-      }]
+      }],
+      addModel: false,
+      newCategoria: {
+        categoriaName: '',
+        iconImage: null
+      },
+      creatingCategoria: false,
+      token: ''
     };
+  },
+  methods: {
+    toggleAddModel: function toggleAddModel() {
+      this.addModel = !this.addModel;
+    }
   }
 });
 
@@ -86066,52 +86113,158 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "home" } }, [
-    _c("div", { staticClass: "area-noticias-recentes" }, [
-      _c("h3", { staticClass: "titulo" }, [_vm._v("Categorias")]),
+  return _c(
+    "div",
+    { attrs: { id: "home" } },
+    [
+      _c("div", { staticClass: "area-noticias-recentes" }, [
+        _c("div", { staticClass: "d-flex my-2 align-items-center" }, [
+          _c("h3", { staticClass: "titulo" }, [_vm._v("Categorias")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group w-25 ml-3" }, [
+            _c("div", { staticClass: "input-group-append" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-outline-success",
+                  attrs: { type: "button" },
+                  on: { click: _vm.toggleAddModel }
+                },
+                [_c("i", { staticClass: "fas fa-plus" })]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { attrs: { id: "items-table" } },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.categorias, function(categoria, indice) {
+              return _c(
+                "div",
+                {
+                  key: indice,
+                  staticClass: "item",
+                  staticStyle: {
+                    "grid-template-columns": "1fr 2fr 3fr !important"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "light" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(categoria.id) +
+                        "\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "weight-bold" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(categoria.nome) +
+                        "\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1, true)
+                ]
+              )
+            })
+          ],
+          2
+        )
+      ]),
       _vm._v(" "),
       _c(
-        "div",
-        { attrs: { id: "items-table" } },
+        "Modal",
+        {
+          attrs: {
+            title: "Add Category",
+            loading: _vm.creatingCategoria,
+            "mask-clsable": false,
+            closable: false
+          },
+          model: {
+            value: _vm.addModel,
+            callback: function($$v) {
+              _vm.addModel = $$v
+            },
+            expression: "addModel"
+          }
+        },
         [
-          _vm._m(0),
+          _c(
+            "Upload",
+            {
+              attrs: {
+                multiple: "",
+                type: "drag",
+                action: "/api/upload",
+                headers: { "x-csrf-token": _vm.token }
+              }
+            },
+            [
+              _c(
+                "div",
+                { staticStyle: { padding: "20px 0" } },
+                [
+                  _c("Icon", {
+                    staticStyle: { color: "#3399ff" },
+                    attrs: { type: "ios-cloud-upload", size: "52" }
+                  }),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Click or drag files here to upload")])
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
-          _vm._l(_vm.categorias, function(categoria, indice) {
-            return _c(
-              "div",
+          _c("input", {
+            directives: [
               {
-                key: indice,
-                staticClass: "item",
-                staticStyle: {
-                  "grid-template-columns": "1fr 2fr 3fr !important"
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newCategoria.categoriaName,
+                expression: "newCategoria.categoriaName"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Nome Categoria" },
+            domProps: { value: _vm.newCategoria.categoriaName },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
                 }
+                _vm.$set(_vm.newCategoria, "categoriaName", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger",
+                on: { click: _vm.toggleAddModel }
               },
-              [
-                _c("div", { staticClass: "light" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(categoria.id) +
-                      "\n                    "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "weight-bold" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(categoria.nome) +
-                      "\n                    "
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._m(1, true)
-              ]
-            )
-          })
+              [_vm._v("Close")]
+            ),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn btn-success" }, [
+              _vm._v("Add Categoria")
+            ])
+          ])
         ],
-        2
+        1
       )
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -86119,17 +86272,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("header", [
-      _c("div", {}, [
-        _vm._v("\n                        Foto\n                    ")
-      ]),
+      _c("div", {}, [_vm._v("\n                    Foto\n                ")]),
       _vm._v(" "),
-      _c("div", {}, [
-        _vm._v("\n                        Nome\n                    ")
-      ]),
+      _c("div", {}, [_vm._v("\n                    Nome\n                ")]),
       _vm._v(" "),
-      _c("div", {}, [
-        _vm._v("\n                        Ações\n                    ")
-      ])
+      _c("div", {}, [_vm._v("\n                    Ações\n                ")])
     ])
   },
   function() {
@@ -86140,10 +86287,6 @@ var staticRenderFns = [
       _c("button", { staticClass: "btn btn-dark view" }, [_vm._v("View")]),
       _vm._v(" "),
       _c("button", { staticClass: "btn btn-info edit" }, [_vm._v("Edit")]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-success make-card" }, [
-        _vm._v("Make Card")
-      ]),
       _vm._v(" "),
       _c("button", { staticClass: "btn btn-danger delete" }, [_vm._v("Delete")])
     ])

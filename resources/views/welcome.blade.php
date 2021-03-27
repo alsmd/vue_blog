@@ -12,6 +12,13 @@
         <link rel="stylesheet" href="{{mix('css/app.css')}}">
         <!--Fonteawesome-->
         <link rel="stylesheet" href="http://localhost:8080/fontawesome/css/all.css">
+        <script>
+            (function(){
+                window.Laravel = {
+                    csrfToken: '{{csrf_token()}}'
+                }
+            })();
+        </script>
     </head>
     <body class="antialiased">
         <div id="app">
