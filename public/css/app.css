@@ -11053,6 +11053,10 @@ a.text-dark:focus,
   font-weight: 700;
 }
 
+#items-table {
+  border: 1px solid #00b3c7;
+}
+
 #items-table .grid-items,
 #items-table .item,
 #items-table header {
@@ -11071,9 +11075,13 @@ a.text-dark:focus,
   padding: 0.4em;
 }
 
+#items-table .item {
+  border-bottom: 1px solid;
+}
+
 #items-table .item div {
   padding: 0.4em;
-  background: #bffbff;
+  background: #50eef9;
   border: 1px solid white;
 }
 

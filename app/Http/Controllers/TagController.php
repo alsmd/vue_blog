@@ -37,13 +37,11 @@ class TagController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'tagName'=>'required'
+        ]);
         $success = Tag::Create($request->all());
-        if($success){
-            return response()->json($success, 200);
-        }else{
-            return response()->json([
-            ],404);
-        }
+       return $success;
     }
 
     /**
@@ -78,6 +76,9 @@ class TagController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+            'tagName'=>'required'
+        ]);
         return Tag::find($id)->update($request->all());
 
     }

@@ -38,15 +38,32 @@
                     </div>
                     <div class="action">
                         <button class="btn btn-info edit" @click="toggleEdit(indice)">Edit</button>
-                        <button class="btn btn-danger delete" @click="confirmarDelete(tag.id,indice)">Delete</button>
+                        <button class="btn btn-danger delete" @click="confirmarDelete(tag.id,indice)" :loading="tag.isDeleting == true" :disabled="tag.isDeleting">
+                            <img src="http://localhost:8080/imgs/loading.gif" alt="" width="20px" v-show="tag.isDeleting">
+                            Delete 
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+        <Modal v-model="showDeleteModel" width="360">
+            <p slot="header" style="color:#f60;text-align:center">
+                <Icon type="ios-information-circle"></Icon>
+                <span>Delete confirmation</span>
+            </p>
+            <div style="text-align:center">
+                <p>Apos realizar essa ação a mesma não pode ser disfeita.</p>
+                <p>Confirmar remoção?</p>
+            </div>
+            <div slot="footer">
+                <Button type="error" size="large" long  :loading="modal_loading" @click="deleteTag">Delete</Button>
+            </div>
+        </Modal>
     </div>
 </template>
 
 <script>
+
 export default {
     async created(){
         let res = await this.callApi('GET','/tag',{});
@@ -65,7 +82,9 @@ export default {
             updatedTag:{
                 tagName:''
             },
-            editing:null
+            editing:null,
+            showDeleteModel:false,
+            modal_loading:false
         }
     },
     methods:{
@@ -79,7 +98,8 @@ export default {
          confirmarDelete(id,indice){
              this.delete_id = id;
              this.delete_indice = indice
-            this.confirm(this.deleteTag);
+             this.showDeleteModel = true;
+             //this.confirm(this.deleteTag);
         },
         toggleEdit(indice){
             //caso outra tag esteja sendo editada ou nenhuma tag esteja sendo editada iremos abrir o modo editing da tag selecionada
@@ -93,23 +113,30 @@ export default {
         },
         /*Crud*/
         async saveTag(){
-            if(this.newTag.tagName.trim() == ''){
-                this.error('O nome da tag não pode ser nulo');
-                return 0;
-            }
+            if(this.newTag.tagName.trim() == '') return this.warning('TagName must not be empty!');
             let res = await this.callApi('POST','/tag',this.newTag);
-            if(res.status == 200){
+            if(res.status == 201){
                 this.tags.unshift(res.data);
                 this.newTag.tagName = '';
                 this.success('Tag Salva Com Sucesso');
             }else{
-                console.log(res);
+                if(res.status == 422){
+                    if(res.data.errors.tagName){
+                        this.warning(res.data.errors.tagName);
+                    }
+                }else{
+                    console.log(res);
+                }
             }
         },
         
         async deleteTag(){
+            this.$set(this.tags[this.delete_indice],'isDeleting',true)//desativa o button de deletar monstrando um loading
+            this.modal_loading =true;
             let res = await this.callApi('DELETE',`tag/${this.delete_id}`);
-            if(res.data > 0){
+            this.modal_loading = false;
+            this.showDeleteModel = false;
+            if(res.status == 200){
                 this.success('Tag apagada com sucesso');
                 this.tags.splice(this.delete_indice,1);
             }else{
@@ -119,9 +146,13 @@ export default {
             this.delete_indice = '';
         },
         async updateTag(id){
+            if(this.updatedTag.tagName.trim() == ''){
+                this.editing = null;
+                return this.warning('TagName must not be empty!');
+            } 
             let res = await this.callApi('PUT',`/tag/${id}`,this.updatedTag);
 
-            if(res.data > 0){
+            if(res.status == 200){
                 this.success('Tag Atualizada com Sucesso!');
                 this.tags[this.editing].tagName = this.updatedTag.tagName;
                 this.editing = null;

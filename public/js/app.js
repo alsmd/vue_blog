@@ -2315,6 +2315,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
     var _this = this;
@@ -2354,7 +2370,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       updatedTag: {
         tagName: ''
       },
-      editing: null
+      editing: null,
+      showDeleteModel: false,
+      modal_loading: false
     };
   },
   methods: {
@@ -2368,7 +2386,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     confirmarDelete: function confirmarDelete(id, indice) {
       this.delete_id = id;
       this.delete_indice = indice;
-      this.confirm(this.deleteTag);
+      this.showDeleteModel = true; //this.confirm(this.deleteTag);
     },
     toggleEdit: function toggleEdit(indice) {
       //caso outra tag esteja sendo editada ou nenhuma tag esteja sendo editada iremos abrir o modo editing da tag selecionada
@@ -2392,32 +2410,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 if (!(_this2.newTag.tagName.trim() == '')) {
-                  _context2.next = 3;
+                  _context2.next = 2;
                   break;
                 }
 
-                _this2.error('O nome da tag não pode ser nulo');
+                return _context2.abrupt("return", _this2.warning('TagName must not be empty!'));
 
-                return _context2.abrupt("return", 0);
-
-              case 3:
-                _context2.next = 5;
+              case 2:
+                _context2.next = 4;
                 return _this2.callApi('POST', '/tag', _this2.newTag);
 
-              case 5:
+              case 4:
                 res = _context2.sent;
 
-                if (res.status == 200) {
+                if (res.status == 201) {
                   _this2.tags.unshift(res.data);
 
                   _this2.newTag.tagName = '';
 
                   _this2.success('Tag Salva Com Sucesso');
                 } else {
-                  console.log(res);
+                  if (res.status == 422) {
+                    if (res.data.errors.tagName) {
+                      _this2.warning(res.data.errors.tagName);
+                    }
+                  } else {
+                    console.log(res);
+                  }
                 }
 
-              case 7:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -2434,13 +2456,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
+                _this3.$set(_this3.tags[_this3.delete_indice], 'isDeleting', true); //desativa o button de deletar monstrando um loading
+
+
+                _this3.modal_loading = true;
+                _context3.next = 4;
                 return _this3.callApi('DELETE', "tag/".concat(_this3.delete_id));
 
-              case 2:
+              case 4:
                 res = _context3.sent;
+                _this3.modal_loading = false;
+                _this3.showDeleteModel = false;
 
-                if (res.data > 0) {
+                if (res.status == 200) {
                   _this3.success('Tag apagada com sucesso');
 
                   _this3.tags.splice(_this3.delete_indice, 1);
@@ -2451,7 +2479,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this3.delete_id = '';
                 _this3.delete_indice = '';
 
-              case 6:
+              case 10:
               case "end":
                 return _context3.stop();
             }
@@ -2468,13 +2496,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
+                if (!(_this4.updatedTag.tagName.trim() == '')) {
+                  _context4.next = 3;
+                  break;
+                }
+
+                _this4.editing = null;
+                return _context4.abrupt("return", _this4.warning('TagName must not be empty!'));
+
+              case 3:
+                _context4.next = 5;
                 return _this4.callApi('PUT', "/tag/".concat(id), _this4.updatedTag);
 
-              case 2:
+              case 5:
                 res = _context4.sent;
 
-                if (res.data > 0) {
+                if (res.status == 200) {
                   _this4.success('Tag Atualizada com Sucesso!');
 
                   _this4.tags[_this4.editing].tagName = _this4.updatedTag.tagName;
@@ -2485,7 +2522,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this4.editing = null;
                 }
 
-              case 4:
+              case 7:
               case "end":
                 return _context4.stop();
             }
@@ -2658,28 +2695,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_pages_admin_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/pages/admin/Home.vue */ "./resources/js/components/pages/admin/Home.vue");
-/* harmony import */ var _components_pages_admin_Categorias_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/pages/admin/Categorias.vue */ "./resources/js/components/pages/admin/Categorias.vue");
-/* harmony import */ var _components_pages_admin_Tags_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/admin/Tags.vue */ "./resources/js/components/pages/admin/Tags.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _components_pages_admin_Home_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/pages/admin/Home.vue */ "./resources/js/components/pages/admin/Home.vue");
+/* harmony import */ var _components_pages_admin_Categorias_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pages/admin/Categorias.vue */ "./resources/js/components/pages/admin/Categorias.vue");
+/* harmony import */ var _components_pages_admin_Tags_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/pages/admin/Tags.vue */ "./resources/js/components/pages/admin/Tags.vue");
 
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_1__.default);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_4__.default);
 var routes = [{
   'path': '/admin',
-  component: _components_pages_admin_Home_vue__WEBPACK_IMPORTED_MODULE_2__.default
+  component: _components_pages_admin_Home_vue__WEBPACK_IMPORTED_MODULE_0__.default
 }, {
   'path': '/admin/categoria',
-  component: _components_pages_admin_Categorias_vue__WEBPACK_IMPORTED_MODULE_3__.default
+  component: _components_pages_admin_Categorias_vue__WEBPACK_IMPORTED_MODULE_1__.default
 }, {
   'path': '/admin/tag',
-  component: _components_pages_admin_Tags_vue__WEBPACK_IMPORTED_MODULE_4__.default
+  component: _components_pages_admin_Tags_vue__WEBPACK_IMPORTED_MODULE_2__.default
 }];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_1__.default({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_4__.default({
   mode: 'history',
   routes: routes
 }));
@@ -86364,176 +86401,263 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "home" } }, [
-    _c("div", { staticClass: "area-noticias-recentes" }, [
-      _c("div", { staticClass: "d-flex my-2 align-items-center" }, [
-        _c("h3", { staticClass: "titulo" }, [_vm._v("Tags")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group w-25 ml-3" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.newTag.tagName,
-                expression: "newTag.tagName"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "New Tag" },
-            domProps: { value: _vm.newTag.tagName },
-            on: {
-              keyup: function($event) {
-                if (
-                  !$event.type.indexOf("key") &&
-                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                ) {
-                  return null
-                }
-                return _vm.saveTag()
-              },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.newTag, "tagName", $event.target.value)
-              }
-            }
-          }),
+  return _c(
+    "div",
+    { attrs: { id: "home" } },
+    [
+      _c("div", { staticClass: "area-noticias-recentes" }, [
+        _c("div", { staticClass: "d-flex my-2 align-items-center" }, [
+          _c("h3", { staticClass: "titulo" }, [_vm._v("Tags")]),
           _vm._v(" "),
-          _c("div", { staticClass: "input-group-append" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-outline-success",
-                attrs: { type: "button" },
-                on: {
-                  click: function($event) {
-                    return _vm.saveTag()
-                  }
+          _c("div", { staticClass: "input-group w-25 ml-3" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.newTag.tagName,
+                  expression: "newTag.tagName"
                 }
-              },
-              [_c("i", { staticClass: "fas fa-plus" })]
-            )
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "New Tag" },
+              domProps: { value: _vm.newTag.tagName },
+              on: {
+                keyup: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.saveTag()
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.newTag, "tagName", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group-append" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-outline-success",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.saveTag()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-plus" })]
+              )
+            ])
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { attrs: { id: "items-table" } },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.tags, function(tag, indice) {
+              return _c(
+                "div",
+                {
+                  key: indice,
+                  staticClass: "item",
+                  staticStyle: { "grid-template-columns": "1fr 3fr 3fr 2fr" }
+                },
+                [
+                  _c("div", { staticClass: "light" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(tag.id) +
+                        "\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "weight-bold" }, [
+                    _vm.editing != indice
+                      ? _c("span", [_vm._v(_vm._s(tag.tagName) + " ")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.editing == indice
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.updatedTag.tagName,
+                              expression: "updatedTag.tagName"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.updatedTag.tagName },
+                          on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.updateTag(tag.id)
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.updatedTag,
+                                "tagName",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "light" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.formatData(tag.created_at)) +
+                        "\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "action" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info edit",
+                        on: {
+                          click: function($event) {
+                            return _vm.toggleEdit(indice)
+                          }
+                        }
+                      },
+                      [_vm._v("Edit")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger delete",
+                        attrs: {
+                          loading: tag.isDeleting == true,
+                          disabled: tag.isDeleting
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.confirmarDelete(tag.id, indice)
+                          }
+                        }
+                      },
+                      [
+                        _c("img", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: tag.isDeleting,
+                              expression: "tag.isDeleting"
+                            }
+                          ],
+                          attrs: {
+                            src: "http://localhost:8080/imgs/loading.gif",
+                            alt: "",
+                            width: "20px"
+                          }
+                        }),
+                        _vm._v(
+                          "\n                        Delete \n                    "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
+            })
+          ],
+          2
+        )
       ]),
       _vm._v(" "),
       _c(
-        "div",
-        { attrs: { id: "items-table" } },
+        "Modal",
+        {
+          attrs: { width: "360" },
+          model: {
+            value: _vm.showDeleteModel,
+            callback: function($$v) {
+              _vm.showDeleteModel = $$v
+            },
+            expression: "showDeleteModel"
+          }
+        },
         [
-          _vm._m(0),
+          _c(
+            "p",
+            {
+              staticStyle: { color: "#f60", "text-align": "center" },
+              attrs: { slot: "header" },
+              slot: "header"
+            },
+            [
+              _c("Icon", { attrs: { type: "ios-information-circle" } }),
+              _vm._v(" "),
+              _c("span", [_vm._v("Delete confirmation")])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _vm._l(_vm.tags, function(tag, indice) {
-            return _c(
-              "div",
-              {
-                key: indice,
-                staticClass: "item",
-                staticStyle: { "grid-template-columns": "1fr 3fr 3fr 2fr" }
-              },
-              [
-                _c("div", { staticClass: "light" }, [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(tag.id) +
-                      "\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "weight-bold" }, [
-                  _vm.editing != indice
-                    ? _c("span", [_vm._v(_vm._s(tag.tagName) + " ")])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.editing == indice
-                    ? _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.updatedTag.tagName,
-                            expression: "updatedTag.tagName"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.updatedTag.tagName },
-                        on: {
-                          keyup: function($event) {
-                            if (
-                              !$event.type.indexOf("key") &&
-                              _vm._k(
-                                $event.keyCode,
-                                "enter",
-                                13,
-                                $event.key,
-                                "Enter"
-                              )
-                            ) {
-                              return null
-                            }
-                            return _vm.updateTag(tag.id)
-                          },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.updatedTag,
-                              "tagName",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "light" }, [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(_vm.formatData(tag.created_at)) +
-                      "\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "action" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-info edit",
-                      on: {
-                        click: function($event) {
-                          return _vm.toggleEdit(indice)
-                        }
-                      }
-                    },
-                    [_vm._v("Edit")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger delete",
-                      on: {
-                        click: function($event) {
-                          return _vm.confirmarDelete(tag.id, indice)
-                        }
-                      }
-                    },
-                    [_vm._v("Delete")]
-                  )
-                ])
-              ]
-            )
-          })
-        ],
-        2
+          _c("div", { staticStyle: { "text-align": "center" } }, [
+            _c("p", [
+              _vm._v("Apos realizar essa ação a mesma não pode ser disfeita.")
+            ]),
+            _vm._v(" "),
+            _c("p", [_vm._v("Confirmar remoção?")])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { slot: "footer" }, slot: "footer" },
+            [
+              _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "error",
+                    size: "large",
+                    long: "",
+                    loading: _vm.modal_loading
+                  },
+                  on: { click: _vm.deleteTag }
+                },
+                [_vm._v("Delete")]
+              )
+            ],
+            1
+          )
+        ]
       )
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
