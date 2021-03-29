@@ -48,13 +48,21 @@
             multiple
             type="drag"
             action="/api/upload"
-            :headers="{'x-csrf-token':token}"
+            :headers="{'x-csrf-token':token,'X-Requested-With':'XMLHttpRequest'}"
+            :format="['jpg','jpeg','png']"
+            :on-success="handleSuccess"
+            :on-error="handleError"
+            :on-format-error="handleFormatError"
+            :max-size="2048"
             >
                 <div style="padding: 20px 0">
                     <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
                     <p>Click or drag files here to upload</p>
                 </div>
             </Upload>
+            <div class="image_thunb">
+                <img :src="`/uploads/${newCategoria.iconImage}`" v-if="newCategoria.iconImage" width="90%" style="margin:5px 5%">
+            </div>
             <input type="text" class="form-control" placeholder="Nome Categoria" v-model="newCategoria.categoriaName">
 
             <div slot="footer">
@@ -106,6 +114,27 @@ export default {
     methods:{
         toggleAddModel(){
             this.addModel = !this.addModel;
+        },
+
+        //File Methods
+        handleSuccess (res, file) {
+            this.newCategoria.iconImage = res;
+            console.log(res)
+        },
+        handleError (file,response) {
+            this.error(response.errors.file.length? response.errors.file[0] : 'Houve um erro inesperado!');
+        },
+        handleMaxSize (file) {
+            this.$Notice.warning({
+                title: 'Exceeding file size limit',
+                desc: 'File  ' + file.name + ' is too large, no more than 2M.'
+            });
+        },
+        handleFormatError (file) {
+            this.$Notice.warning({
+                title: 'The file format is incorrect',
+                desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+            });
         }
     }
 }

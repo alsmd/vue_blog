@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,10 +18,5 @@ use App\Http\Controllers\TagController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/upload',function(Request $request){
-    $picName =  time().'.'.$request->file->extension();
-    $request->file->move(public_path('uploads'),$picName);
-
-    return $picName;
-});
+Route::post('/upload',[AdminController::class,'upload']);
 Route::resource('tag',TagController::class);

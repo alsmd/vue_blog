@@ -5,6 +5,7 @@
 /vendor
 /public/fontawesome
 /public/fonts
+/public/uploads
 .env
 .env.backup
 .phpunit.result.cache

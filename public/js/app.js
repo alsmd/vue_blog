@@ -2087,6 +2087,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
     this.token = window.Laravel.csrfToken;
@@ -2121,6 +2129,26 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     toggleAddModel: function toggleAddModel() {
       this.addModel = !this.addModel;
+    },
+    //File Methods
+    handleSuccess: function handleSuccess(res, file) {
+      this.newCategoria.iconImage = res;
+      console.log(res);
+    },
+    handleError: function handleError(file, response) {
+      this.error(response.errors.file.length ? response.errors.file[0] : 'Houve um erro inesperado!');
+    },
+    handleMaxSize: function handleMaxSize(file) {
+      this.$Notice.warning({
+        title: 'Exceeding file size limit',
+        desc: 'File  ' + file.name + ' is too large, no more than 2M.'
+      });
+    },
+    handleFormatError: function handleFormatError(file) {
+      this.$Notice.warning({
+        title: 'The file format is incorrect',
+        desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+      });
     }
   }
 });
@@ -2716,26 +2744,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _admin_pages_Home_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin/pages/Home.vue */ "./resources/js/admin/pages/Home.vue");
-/* harmony import */ var _admin_pages_Categorias_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admin/pages/Categorias.vue */ "./resources/js/admin/pages/Categorias.vue");
-/* harmony import */ var _admin_pages_Tags_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./admin/pages/Tags.vue */ "./resources/js/admin/pages/Tags.vue");
+/* harmony import */ var _admin_pages_Home_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/pages/Home.vue */ "./resources/js/admin/pages/Home.vue");
+/* harmony import */ var _admin_pages_Categorias_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin/pages/Categorias.vue */ "./resources/js/admin/pages/Categorias.vue");
+/* harmony import */ var _admin_pages_Tags_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admin/pages/Tags.vue */ "./resources/js/admin/pages/Tags.vue");
 
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_4__.default);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_4__.default);
 var routes = [{
   'path': '/admin',
-  component: _admin_pages_Home_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  component: _admin_pages_Home_vue__WEBPACK_IMPORTED_MODULE_0__.default
 }, {
   'path': '/admin/categoria',
-  component: _admin_pages_Categorias_vue__WEBPACK_IMPORTED_MODULE_2__.default
+  component: _admin_pages_Categorias_vue__WEBPACK_IMPORTED_MODULE_1__.default
 }, {
   'path': '/admin/tag',
-  component: _admin_pages_Tags_vue__WEBPACK_IMPORTED_MODULE_3__.default
+  component: _admin_pages_Tags_vue__WEBPACK_IMPORTED_MODULE_2__.default
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_4__.default({
   mode: 'history',
@@ -86203,7 +86231,15 @@ var render = function() {
                 multiple: "",
                 type: "drag",
                 action: "/api/upload",
-                headers: { "x-csrf-token": _vm.token }
+                headers: {
+                  "x-csrf-token": _vm.token,
+                  "X-Requested-With": "XMLHttpRequest"
+                },
+                format: ["jpg", "jpeg", "png"],
+                "on-success": _vm.handleSuccess,
+                "on-error": _vm.handleError,
+                "on-format-error": _vm.handleFormatError,
+                "max-size": 2048
               }
             },
             [
@@ -86222,6 +86258,18 @@ var render = function() {
               )
             ]
           ),
+          _vm._v(" "),
+          _c("div", { staticClass: "image_thunb" }, [
+            _vm.newCategoria.iconImage
+              ? _c("img", {
+                  staticStyle: { margin: "5px 5%" },
+                  attrs: {
+                    src: "/uploads/" + _vm.newCategoria.iconImage,
+                    width: "90%"
+                  }
+                })
+              : _vm._e()
+          ]),
           _vm._v(" "),
           _c("input", {
             directives: [
