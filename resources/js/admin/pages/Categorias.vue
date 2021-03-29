@@ -54,14 +54,17 @@
             :on-error="handleError"
             :on-format-error="handleFormatError"
             :max-size="2048"
+            :on-remove="removeImage"
+            ref="uploads"
             >
                 <div style="padding: 20px 0">
-                    <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
                     <p>Click or drag files here to upload</p>
+                    <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
                 </div>
             </Upload>
-            <div class="image_thunb">
-                <img :src="`/uploads/${newCategoria.iconImage}`" v-if="newCategoria.iconImage" width="90%" style="margin:5px 5%">
+            <div class="image_thunb" v-if="newCategoria.iconImage">
+                <img :src="`/uploads/${newCategoria.iconImage}`"  width="90%" style="margin:5px 5%" @click="removeImage">
+                <Icon type="ios-trash-outline" size="50"></Icon>
             </div>
             <input type="text" class="form-control" placeholder="Nome Categoria" v-model="newCategoria.categoriaName">
 
@@ -119,7 +122,6 @@ export default {
         //File Methods
         handleSuccess (res, file) {
             this.newCategoria.iconImage = res;
-            console.log(res)
         },
         handleError (file,response) {
             this.error(response.errors.file.length? response.errors.file[0] : 'Houve um erro inesperado!');
@@ -135,11 +137,42 @@ export default {
                 title: 'The file format is incorrect',
                 desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
             });
+        },
+        async removeImage(){
+            let img  = this.newCategoria.iconImage;
+            this.newCategoria.iconImage = '';
+            const res = await this.callApi('post','/delete_image',{imageName:img});
+            console.log(res);
+            if(res.status !=200){
+                this.newCategoria.iconImage = img;
+                this.error('não foi possivel apagar a imagem')
+            }else if(res.tatus == 200){
+                this.$refs.uploads.clearFiles();
+            }
         }
     }
 }
 </script>
 
 <style>
-
+.image_thunb{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image_thunb img{
+    z-index: 1000;
+    cursor: pointer;
+}
+.image_thunb img:hover{
+    opacity: .5;
+}
+.image_thunb img:hover + i{
+    display: block;
+}
+.image_thunb i {
+    position: absolute;
+    display: none;
+}
 </style>
